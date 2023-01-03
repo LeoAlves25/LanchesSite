@@ -16,7 +16,7 @@ namespace LanchesSite.Repositories
 
         public IEnumerable<Lanche> LanchesPreferidos => _context.Lanches.
                                     Where(l => l.IsLanchePreferido).
-                                    Include(c=>c.Categoria);
+                                    Include(c => c.Categoria);
 
         public Lanche GetLancheById(int lancheId)
         {

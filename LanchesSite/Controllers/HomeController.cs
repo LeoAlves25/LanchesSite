@@ -9,6 +9,7 @@ namespace LanchesSite.Controllers
 
         public IActionResult Index()
         {
+            TempData["Nome"] = "Leonardo";
             return View();
         }
 
