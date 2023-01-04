@@ -1,7 +1,7 @@
-﻿@model IEnumerable<LanchesSite.Models.Lanche>
+﻿@model LancheListViewModel
 
 <div>
-    <h2>@ViewData["Titulo"]</h2>
+    <h2>@Model.CategoriaAtual</h2>
 </div>
 <h2>@ViewData["Data"]</h2>
 <hr />
@@ -14,15 +14,9 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        @foreach (var lanche in Model)
+        @foreach (var lanche in Model.Lanches)
         {
-            <div class="col-md-4">
-                <p><img src="@lanche.ImagemUrl" class="img-fluid"/></p>
-                <h3>Preço: @lanche.Preco.ToString("c")</h3>
-                <h4>@lanche.Nome</h4>
-                <p>@lanche.DescricaoCurta</p>
-                <br />
-            </div>
+            <partial name="_LanchesResumo" for="@lanche"/>
         }
     </div>
 

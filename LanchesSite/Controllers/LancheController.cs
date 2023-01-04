@@ -1,4 +1,5 @@
 ﻿using LanchesSite.Repositories.Interfaces;
+using LanchesSite.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanchesSite.Controllers
@@ -22,7 +23,12 @@ namespace LanchesSite.Controllers
 
             ViewBag.Total = "Total de Lanches:";
             ViewBag.TotalLanches = totalLanches;
-            return View(lanches);
+            //return View(lanches);
+
+            var lanchesListViewModel = new LancheListViewModel();
+            lanchesListViewModel.Lanches = _lancheRepository.Lanches;
+            lanchesListViewModel.CategoriaAtual = "Categoria Atual";
+            return View(lanchesListViewModel);
         }
     }
 }
