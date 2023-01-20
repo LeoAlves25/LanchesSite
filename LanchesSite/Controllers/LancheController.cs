@@ -51,14 +51,14 @@ namespace LanchesSite.Controllers
             return View(lanchesListViewModel);
         }
 
-        public IActionResult Details (int lancheId)
+        public IActionResult Details(int lancheId)
         {
             var lanche = _lancheRepository.Lanches.FirstOrDefault(l => l.LancheId == lancheId);
 
             return View(lanche);
         }
 
-        public ViewResult Search (string searchString)
+        public ViewResult Search(string searchString)
         {
             IEnumerable<Lanche> lanches;
             string categoriaAtual = string.Empty;
@@ -81,7 +81,7 @@ namespace LanchesSite.Controllers
             return View("~/Views/Lanche/List.cshtml", new LancheListViewModel
             {
                 Lanches = lanches,
-                CategoriaAtual=categoriaAtual
+                CategoriaAtual = categoriaAtual
             });
         }
     }
