@@ -16,20 +16,17 @@ namespace LanchesSite.Controllers
             _carrinhoCompra = carrinhoCompra;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public IActionResult Checkout()
         {
             return View();
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public IActionResult Checkout(Pedido pedido)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-
 
                 int totalItensPedido = 0;
                 decimal precoTotalPedido = 0.0m;
@@ -73,9 +70,7 @@ namespace LanchesSite.Controllers
                 }
 
                 return View(pedido);
-            }
 
-            return RedirectToAction("Login", "Account");
         }
     }
 }

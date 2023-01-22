@@ -31,43 +31,31 @@ namespace LanchesSite.Controllers
             return View(carrinhoCompraVM);
         }
 
-        //[Authorize]
+        [Authorize]
         public IActionResult AdicionarItemNoCarrinhoCompra(int lancheId)
         {
-            if (User.Identity.IsAuthenticated)
+
+            var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(p => p.LancheId == lancheId);
+
+            if (lancheSelecionado != null)
             {
-
-                var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(p => p.LancheId == lancheId);
-
-                if (lancheSelecionado != null)
-                {
-                    _carrinhoCompra.AdicionarAoCarrinho(lancheSelecionado);
-                }
-                return RedirectToAction("Index");
-
+                _carrinhoCompra.AdicionarAoCarrinho(lancheSelecionado);
             }
-
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index");
 
         }
 
-        //[Authorize]
+        [Authorize]
         public IActionResult RemoverItemDoCarrinhoCompra(int lancheId)
         {
-            if (User.Identity.IsAuthenticated)
+
+            var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(p => p.LancheId == lancheId);
+
+            if (lancheSelecionado != null)
             {
-                var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(p => p.LancheId == lancheId);
-
-                if (lancheSelecionado != null)
-                {
-                    _carrinhoCompra.RemoverDoCarrinho(lancheSelecionado);
-                }
-                return RedirectToAction("Index");
-
-
+                _carrinhoCompra.RemoverDoCarrinho(lancheSelecionado);
             }
-
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index");
 
         }
     }
