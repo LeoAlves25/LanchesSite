@@ -6,13 +6,9 @@ namespace LanchesSite.Controllers
     {
         public IActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View();
 
-            }
+            return View();
 
-            return RedirectToAction("Login", "Account");
         }
     }
 }

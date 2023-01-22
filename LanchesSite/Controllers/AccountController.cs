@@ -21,7 +21,7 @@ namespace LanchesSite.Controllers
             return View(new LoginViewModel()
             {
                 ReturnUrl = returnurl
-            }); ;
+            });
         }
 
         [HttpPost]
