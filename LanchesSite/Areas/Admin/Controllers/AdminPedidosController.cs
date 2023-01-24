@@ -9,6 +9,7 @@ using LanchesSite.Context;
 using LanchesSite.Models;
 using Microsoft.AspNetCore.Authorization;
 using ReflectionIT.Mvc.Paging;
+using LanchesSite.ViewModels;
 
 namespace LanchesSite.Areas.Admin.Controllers
 {
@@ -28,6 +29,28 @@ namespace LanchesSite.Areas.Admin.Controllers
         //{
         //      return View(await _context.Pedido.ToListAsync());
         //}
+
+        public IActionResult PedidoLanches(int? id)
+        {
+            var pedido = _context.Pedido
+                         .Include(pd=>pd.PedidoItens)
+                         .ThenInclude(l=>l.Lanche)
+                         .FirstOrDefault(p=>p.PedidoId == id);
+
+            if(pedido == null)
+            {
+                Response.StatusCode = 404;
+                return View("PedidoNotFound", id.Value);
+            }
+
+            PedidoLancheViewModel pedidoLanches = new PedidoLancheViewModel()
+            {
+                Pedido = pedido,
+                PedidoDetalhes = pedido.PedidoItens
+            };
+
+            return View(pedidoLanches);
+        }
 
         public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "Nome")
         {
