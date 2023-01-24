@@ -29,11 +29,11 @@ namespace LanchesSite.Areas.Admin.Controllers
         //      return View(await _context.Pedido.ToListAsync());
         //}
 
-        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "None")
+        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "Nome")
         {
             var resultado = _context.Pedido.AsNoTracking().AsQueryable();
 
-            if (!string.IsNullOrEmpty(filter))
+            if (!string.IsNullOrWhiteSpace(filter))
             {
                 resultado = resultado.Where(p => p.Nome.Contains(filter));
             }
