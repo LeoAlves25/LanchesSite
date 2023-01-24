@@ -59,6 +59,8 @@ public class Startup
 
         services.AddControllersWithViews();
 
+        services.Configure<ConfigurationImagens>(Configuration.GetSection("ConfigurationPastaImagens"));
+
         services.AddPaging(options =>
         {
             options.ViewName = "Bootstrap4";
