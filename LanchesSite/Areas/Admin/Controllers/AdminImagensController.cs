@@ -25,13 +25,13 @@ namespace LanchesSite.Areas.Admin.Controllers
 
         public async Task<IActionResult> UploadFiles(List<IFormFile> files)
         {
-            if(files == null || files.Count == 0)
+            if (files == null || files.Count == 0)
             {
                 ViewData["Erro"] = "Error: Arquivo(s) não selecionado(s)";
                 return View(ViewData);
             }
 
-            if(files.Count > 10)
+            if (files.Count > 10)
             {
                 ViewData["Erro"] = "Error: Quantidade de arquivos excedeu o limite";
                 return View(ViewData);
@@ -43,9 +43,9 @@ namespace LanchesSite.Areas.Admin.Controllers
 
             var filePath = Path.Combine(_hostingEnviroment.WebRootPath, _myConfig.NomePastaImagensProdutos);
 
-            foreach(var formFile in files)
+            foreach (var formFile in files)
             {
-                if(formFile.FileName.Contains(".jpg") || formFile.FileName.Contains(".gif") || formFile.FileName.Contains(".png"))
+                if (formFile.FileName.Contains(".jpg") || formFile.FileName.Contains(".gif") || formFile.FileName.Contains(".png"))
                 {
                     var fileNameWithPath = string.Concat(filePath, "\\", formFile.FileName);
 
@@ -77,7 +77,7 @@ namespace LanchesSite.Areas.Admin.Controllers
 
             model.PathImagesProduto = _myConfig.NomePastaImagensProdutos;
 
-            if(files.Length == 0)
+            if (files.Length == 0)
             {
                 ViewData["Erro"] = $"Nenhum arquivo encontrado na pasta {userImagesPath}";
             }
@@ -85,6 +85,20 @@ namespace LanchesSite.Areas.Admin.Controllers
             model.Files = files;
 
             return View(model);
+        }
+
+        public IActionResult Deletefile(string fname)
+        {
+            string _imagemDelete = Path.Combine(_hostingEnviroment.WebRootPath, _myConfig.NomePastaImagensProdutos + "\\", fname);
+
+            if (System.IO.File.Exists(_imagemDelete))
+            {
+                System.IO.File.Delete(_imagemDelete);
+
+                ViewData["Deletado"] = $"Arquivo(s) {_imagemDelete} deletado com sucesso.";
+            }
+
+            return View("index");
         }
     }
 }
